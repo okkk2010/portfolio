@@ -6,12 +6,16 @@ export const skills: Skill[] = [
     items: ["React", "TypeScript", "Vite", "Tailwind CSS", "TanStack Query (필요 시)"]
   },
   {
+    category: "Backend / DevOps",
+    items: ["Node.js", "Express", "MySQL", "Socket.IO", "WebSocket", "AWS EC2 / S3"]
+  },
+  {
     category: "Game / Desktop",
     items: ["Unity (2D)", ".NET (C#)", "Windows Forms / WPF", "Overlay / Hook"]
   },
   {
     category: "Collaboration",
-    items: ["Git", "Figma", "Notion", "Jira", "Design Doc 작성"]
+    items: ["Git", "Figma", "Notion"]
   },
   {
     category: "Principles",

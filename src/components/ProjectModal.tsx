@@ -25,13 +25,25 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             <h3 className="text-2xl font-semibold text-ink-soft">{project.title}</h3>
             <p className="text-sm font-medium text-accent">{project.tagline}</p>
           </div>
-          <button
-            type="button"
-            className="rounded-full border border-slate-200 px-3 py-1 text-sm text-ink-faint hover:border-accent hover:text-accent"
-            onClick={onClose}
-          >
-            닫기
-          </button>
+          <div className="flex items-center gap-3">
+            {project.url ? (
+              <a
+                className="rounded-full border border-accent px-4 py-2 text-sm font-semibold text-accent transition hover:-translate-y-0.5 hover:border-accent-strong hover:text-accent-strong"
+                href={project.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                프로젝트 URL
+              </a>
+            ) : null}
+            <button
+              type="button"
+              className="rounded-full border border-slate-200 px-3 py-1 text-sm text-ink-faint hover:border-accent hover:text-accent"
+              onClick={onClose}
+            >
+              닫기
+            </button>
+          </div>
         </div>
 
         <div className="mt-6 grid gap-6 md:grid-cols-2">
@@ -71,7 +83,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 href={link.href}
                 className="inline-flex items-center gap-2 rounded-full border border-accent px-4 py-2 text-sm font-semibold text-accent transition hover:-translate-y-0.5 hover:border-accent-strong hover:text-accent-strong"
               >
-                {link.label} ↗
+                {link.label} →
               </a>
             ))}
           </div>

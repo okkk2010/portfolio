@@ -6,6 +6,7 @@ export type Project = {
   tagline: string;
   year: string;
   platform: string;
+  url?: string;
   stack: string[];
   keywords: string[];
   problem: string;

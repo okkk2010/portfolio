@@ -39,9 +39,22 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
             </span>
           ))}
         </div>
-        <span className="text-accent transition group-hover:translate-x-1 group-hover:text-accent-strong">
-          자세히 보기 →
-        </span>
+        <div className="flex items-center gap-3">
+          {project.url ? (
+            <a
+              className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-accent transition hover:-translate-y-0.5 hover:bg-slate-200"
+              href={project.url}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(event) => event.stopPropagation()}
+            >
+              프로젝트 URL
+            </a>
+          ) : null}
+          <span className="text-accent transition group-hover:translate-x-1 group-hover:text-accent-strong">
+            상세 보기 →
+          </span>
+        </div>
       </div>
     </article>
   );
