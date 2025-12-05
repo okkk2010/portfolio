@@ -22,6 +22,8 @@ export function ProjectsSection() {
         }
       } catch (err) {
         if (!cancelled) {
+          // Log to help identify DB/API connectivity issues during fetch
+          console.log("Projects fetch failed, using fallback:", err);
           setItems(fallbackProjects);
           setSelected(fallbackProjects[0] ?? null);
           setError("DB 연결에 문제가 있어 로컬 데이터로 대체했습니다.");

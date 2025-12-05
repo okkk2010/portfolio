@@ -7,6 +7,12 @@ export default defineConfig({
         allowedHosts: [
             'ec2-3-35-21-98.ap-northeast-2.compute.amazonaws.com',
         ],
-        port: 5173
+        port: 5173,
+        proxy: {
+            "/api": {
+                target: "http://localhost:8787",
+                changeOrigin: true
+            }
+        }
     }
 });

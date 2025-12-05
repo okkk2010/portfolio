@@ -18,6 +18,7 @@ export function SkillsSection() {
         }
       } catch (err) {
         if (!cancelled) {
+          console.log("Skills fetch failed, using fallback:", err);
           setItems(fallbackSkills);
           setError("DB 연결에 문제가 있어 로컬 데이터로 대체했습니다.");
         }
