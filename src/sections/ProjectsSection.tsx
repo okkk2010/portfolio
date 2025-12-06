@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { SectionHeader } from "../components/SectionHeader";
 import { ProjectCard } from "../components/ProjectCard";
 import { ProjectModal } from "../components/ProjectModal";
@@ -22,11 +22,10 @@ export function ProjectsSection() {
         }
       } catch (err) {
         if (!cancelled) {
-          // Log to help identify DB/API connectivity issues during fetch
           console.log("Projects fetch failed, using fallback:", err);
           setItems(fallbackProjects);
           setSelected(fallbackProjects[0] ?? null);
-          setError("DB 연결에 문제가 있어 로컬 데이터로 대체했습니다.");
+          setError("DB connection failed. Showing local fallback data.");
         }
       }
     })();
@@ -39,8 +38,8 @@ export function ProjectsSection() {
     <section id="projects" className="space-y-8">
       <SectionHeader
         eyebrow="Projects"
-        title="문제 해결이 명확한 프로젝트"
-        description="Oculo와 Coin Project를 중심으로, 문제 → 접근 → 결과가 드러나는 스토리텔링에 맞춰 정리했습니다."
+        title="Projects that show clear problem-solving"
+        description="Centered on Oculo and Coin Project, highlighting problem definition, approach, and results."
       />
       {error && <p className="text-sm text-amber-600">{error}</p>}
       <div className="grid gap-4 md:grid-cols-2">

@@ -1,9 +1,9 @@
-import type { Skill } from "../types";
+﻿import type { Skill } from "../types";
 
 export const skills: Skill[] = [
   {
     category: "Frontend",
-    items: ["React", "TypeScript", "Vite", "Tailwind CSS", "TanStack Query (필요 시)"]
+    items: ["React", "TypeScript", "Vite", "Tailwind CSS", "TanStack Query (as needed)"]
   },
   {
     category: "Backend / DevOps",
@@ -19,6 +19,6 @@ export const skills: Skill[] = [
   },
   {
     category: "Principles",
-    items: ["데이터 주도 UI", "문제-접근-결과 구조화", "모바일 퍼스트 레이아웃"]
+    items: ["Readable UI hierarchy", "Problem-Approach-Result thinking", "Mobile-first design"]
   }
 ];

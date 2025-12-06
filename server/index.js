@@ -1,4 +1,4 @@
-import "dotenv/config";
+﻿import "dotenv/config";
 import express from "express";
 import { pool } from "./db.js";
 import { fallbackProjects, fallbackSkills, fallbackTimeline } from "./fallbackData.js";
@@ -6,7 +6,6 @@ import { fallbackProjects, fallbackSkills, fallbackTimeline } from "./fallbackDa
 const app = express();
 app.use(express.json());
 
-// Allow simple CORS for dev use; proxy via Vite is recommended for production.
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,OPTIONS");
@@ -28,20 +27,6 @@ const toArray = (val) => {
   }
 };
 
-const dedupePrimitives = (arr) => [...new Set(arr.filter(Boolean))];
-
-const dedupeLinks = (arr) => {
-  const seen = new Set();
-  return arr
-    .filter((item) => item && typeof item === "object")
-    .filter((item) => {
-      const key = `${item.label ?? ""}::${item.href ?? ""}`;
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
-};
-
 app.get("/api/projects", async (_req, res) => {
   try {
     const [rows] = await pool.query(
@@ -60,9 +45,9 @@ app.get("/api/projects", async (_req, res) => {
           p.result,
           p.learned,
           p.role,
-          JSON_ARRAYAGG(ps.stack) AS stack,
-          JSON_ARRAYAGG(pk.keyword) AS keywords,
-          JSON_ARRAYAGG(JSON_OBJECT('label', pl.label, 'href', pl.href)) AS links
+          JSON_ARRAYAGG(DISTINCT ps.stack) AS stack,
+          JSON_ARRAYAGG(DISTINCT pk.keyword) AS keywords,
+          JSON_ARRAYAGG(DISTINCT JSON_OBJECT('label', pl.label, 'href', pl.href)) AS links
         FROM projects p
         LEFT JOIN project_stack ps ON ps.project_id = p.id
         LEFT JOIN project_keywords pk ON pk.project_id = p.id
@@ -80,15 +65,15 @@ app.get("/api/projects", async (_req, res) => {
       year: String(row.year ?? ""),
       platform: row.platform ?? "",
       url: row.url ?? undefined,
-      stack: dedupePrimitives(toArray(row.stack)),
-      keywords: dedupePrimitives(toArray(row.keywords)),
+      stack: toArray(row.stack),
+      keywords: toArray(row.keywords),
       summary: row.summary ?? "",
       problem: row.problem ?? "",
       approach: row.approach ?? "",
       result: row.result ?? "",
       learned: row.learned ?? "",
       role: row.role ?? "",
-      links: dedupeLinks(toArray(row.links))
+      links: toArray(row.links)
     }));
 
     return res.json(result.length ? result : fallbackProjects);
@@ -105,7 +90,7 @@ app.get("/api/skills", async (_req, res) => {
         SELECT
           sc.id,
           sc.category,
-          JSON_ARRAYAGG(si.item) AS items
+          JSON_ARRAYAGG(si.item ORDER BY si.id) AS items
         FROM skill_categories sc
         LEFT JOIN skill_items si ON si.category_id = sc.id
         GROUP BY sc.id
@@ -133,7 +118,7 @@ app.get("/api/timeline", async (_req, res) => {
           tg.id,
           tg.title,
           tg.period,
-          JSON_ARRAYAGG(ti.detail) AS items
+          JSON_ARRAYAGG(ti.detail ORDER BY ti.id) AS items
         FROM timeline_groups tg
         LEFT JOIN timeline_items ti ON ti.group_id = tg.id
         GROUP BY tg.id

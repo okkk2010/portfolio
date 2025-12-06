@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { SectionHeader } from "../components/SectionHeader";
 import { skills as fallbackSkills } from "../data/skills";
 import { portfolioApi } from "../services/portfolioApi";
@@ -20,7 +20,7 @@ export function SkillsSection() {
         if (!cancelled) {
           console.log("Skills fetch failed, using fallback:", err);
           setItems(fallbackSkills);
-          setError("DB 연결에 문제가 있어 로컬 데이터로 대체했습니다.");
+          setError("DB connection failed. Showing local fallback data.");
         }
       }
     })();
@@ -33,8 +33,8 @@ export function SkillsSection() {
     <section id="skills" className="space-y-8">
       <SectionHeader
         eyebrow="Skills"
-        title="주요 스택과 협업 방식"
-        description="React/TypeScript 기반 웹, Unity/ .NET 기반 게임·데스크톱, 그리고 데이터 주도 설계를 중심으로 협업합니다."
+        title="Core stacks and ways of working"
+        description="Focused on React/TypeScript for web, Unity/.NET for games/desktop, and data-driven design."
       />
       {error && <p className="text-sm text-amber-600">{error}</p>}
       <div className="grid gap-4 md:grid-cols-2">
@@ -46,7 +46,7 @@ export function SkillsSection() {
             <p className="text-sm font-semibold text-accent">{group.category}</p>
             <ul className="mt-3 space-y-2 text-sm text-ink-soft">
               {group.items.map((item) => (
-                <li key={item}>• {item}</li>
+                <li key={item}>- {item}</li>
               ))}
             </ul>
           </div>

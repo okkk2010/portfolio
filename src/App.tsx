@@ -1,4 +1,3 @@
-import { HeroSection } from "./sections/HeroSection";
 import { ProjectsSection } from "./sections/ProjectsSection";
 import { SkillsSection } from "./sections/SkillsSection";
 import { TimelineSection } from "./sections/TimelineSection";
@@ -32,7 +31,6 @@ function App() {
       </header>
 
       <main className="mx-auto flex max-w-6xl flex-col gap-16 px-6 py-12 md:py-16">
-        <HeroSection />
         <ProjectsSection />
         <SkillsSection />
         <TimelineSection />

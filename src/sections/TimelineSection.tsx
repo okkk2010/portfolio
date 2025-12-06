@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { SectionHeader } from "../components/SectionHeader";
 import { timeline as fallbackTimeline } from "../data/timeline";
 import { portfolioApi } from "../services/portfolioApi";
@@ -20,7 +20,7 @@ export function TimelineSection() {
         if (!cancelled) {
           console.log("Timeline fetch failed, using fallback:", err);
           setItems(fallbackTimeline);
-          setError("DB 연결에 문제가 있어 로컬 데이터로 대체했습니다.");
+          setError("DB connection failed. Showing local fallback data.");
         }
       }
     })();
@@ -33,8 +33,8 @@ export function TimelineSection() {
     <section id="timeline" className="space-y-8">
       <SectionHeader
         eyebrow="Timeline"
-        title="경험의 맥락"
-        description="멀미를 줄이는 데스크톱 유틸리티와 경제 기반 게임까지, 실험과 학습을 거쳐온 흐름입니다."
+        title="Experience timeline"
+        description="From motion-sickness overlay utility to an economy-driven 2D game, summarized by year."
       />
       {error && <p className="text-sm text-amber-600">{error}</p>}
       <div className="space-y-4">
@@ -49,7 +49,7 @@ export function TimelineSection() {
             </div>
             <ul className="mt-3 space-y-2 text-sm text-ink-soft">
               {item.items.map((line) => (
-                <li key={line}>• {line}</li>
+                <li key={line}>- {line}</li>
               ))}
             </ul>
           </div>
